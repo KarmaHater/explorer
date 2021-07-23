@@ -1,11 +1,12 @@
 import React, { useCallback, useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
-const SearchBar = ({ onSubmit, onClear, shouldClear }) => {
+const SearchBar = ({ onSubmit, onClear }) => {
+  const topic = useSelector(({ topics }) => topics.topic);
+
   useEffect(() => {
-    if (shouldClear) {
-      setSearchState({ value: "" });
-    }
-  }, [shouldClear]);
+    setSearchState({ value: "" });
+  }, [topic]);
 
   const [searchState, setSearchState] = useState({ value: "" });
 
@@ -46,7 +47,6 @@ const SearchBar = ({ onSubmit, onClear, shouldClear }) => {
 SearchBar.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   onClear: PropTypes.func.isRequired,
-  shouldClear: PropTypes.bool.isRequired,
 };
 
 export default SearchBar;

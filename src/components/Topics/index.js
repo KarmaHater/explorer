@@ -8,7 +8,6 @@ const Topics = () => {
   const dispatch = useDispatch();
   const topics = useSelector(({ topics }) => topics.relatedTopics);
   const [filteredTopic, setFilteredTopicState] = useState(null);
-  const [clearSearchState, setClearSearchState] = useState(false);
 
   const handleSearchSubmitCB = useCallback(
     ({ value }) => {
@@ -20,16 +19,11 @@ const Topics = () => {
 
   const handleOnClearCB = useCallback(() => {
     setFilteredTopicState(null);
-    setClearSearchState(false);
   }, []);
 
   return (
     <div>
-      <SearchBar
-        onSubmit={handleSearchSubmitCB}
-        onClear={handleOnClearCB}
-        shouldClear={clearSearchState}
-      />
+      <SearchBar onSubmit={handleSearchSubmitCB} onClear={handleOnClearCB} />
       {(filteredTopic ? filteredTopic : topics).map((topic, i) => {
         return (
           <div key={i}>
@@ -38,7 +32,6 @@ const Topics = () => {
               onClick={() => {
                 dispatch(fetchTopics(topic.name));
                 handleOnClearCB();
-                setClearSearchState(true);
               }}
               text={`Get topics for ${topic.name}`}
             />

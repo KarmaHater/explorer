@@ -50,5 +50,5 @@ As you know, we only have some much time in a day. I left the following topics o
 1. **Testing:** I would have added tests. I would have tested everything in the UI-lib and Redux. I might not have tested anything in the components folders because UIs are constantly changing. Ultimately, this is a team/business decision if those components get tested or not.
 2. **Css:** I'm a big fan of CSS in JS. I like writing in the same language, and I love creating logic in CSS objects. In the end, I would have used Emotion.
 3. **Error State** I would have added error states if the API failed to inform the user to refresh or come back later.
-4. **Loading State** I would have add loading states when the app is fetching data. Right now, I have a pretty bad flicker; adding this state would have solved this problem.
+4. **Loading State** I would have added loading states when the app is fetching data. Right now, I have a pretty bad flicker; adding this state would have solved this problem.
 5. **Performance:** I added a check before we hit the Github API. If we have the information in the store, we return it. Otherwise, we get the data from the API. Performance is a never-ending conversation, and I would have loved to go into this topic a little deeper if I had time.
