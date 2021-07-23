@@ -1,6 +1,5 @@
 import React, { useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import PropTypes from "prop-types";
 import { fetchTopics } from "../../redux/topicsSlice";
 import Button from "../../ui-library/Button";
 import SearchBar from "../../ui-library/SearchBar";
@@ -21,6 +20,7 @@ const Topics = () => {
 
   const handleOnClearCB = useCallback(() => {
     setFilteredTopicState(null);
+    setClearSearchState(false);
   }, []);
 
   return (
@@ -47,10 +47,6 @@ const Topics = () => {
       })}
     </div>
   );
-};
-
-Topics.propTypes = {
-  onClick: PropTypes.func.isRequired,
 };
 
 export default Topics;
