@@ -1,17 +1,45 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
+import { fetchTopics } from "../../redux/topicsSlice";
 import Button from "../../ui-library/Button";
+import SearchBar from "../../ui-library/SearchBar";
 
-const Topics = ({ topics, onClick }) => {
-  console.log(topics);
+const Topics = () => {
+  const dispatch = useDispatch();
+  const topics = useSelector(({ topics }) => topics.relatedTopics);
+  const [filteredTopic, setFilteredTopicState] = useState(null);
+  const [clearSearchState, setClearSearchState] = useState(false);
+
+  const handleSearchSubmitCB = useCallback(
+    ({ value }) => {
+      const filterTopics = topics.filter((topic) => topic.name.includes(value));
+      setFilteredTopicState(filterTopics);
+    },
+    [topics]
+  );
+
+  const handleOnClearCB = useCallback(() => {
+    setFilteredTopicState(null);
+  }, []);
+
   return (
     <div>
-      {topics.map((topic, i) => {
+      <SearchBar
+        onSubmit={handleSearchSubmitCB}
+        onClear={handleOnClearCB}
+        shouldClear={clearSearchState}
+      />
+      {(filteredTopic ? filteredTopic : topics).map((topic, i) => {
         return (
           <div key={i}>
             <h3 key={topic.stargazerCount}>{topic.name}</h3>
             <Button
-              onClick={() => onClick(topic)}
+              onClick={() => {
+                dispatch(fetchTopics(topic.name));
+                handleOnClearCB();
+                setClearSearchState(true);
+              }}
               text={`Get topics for ${topic.name}`}
             />
           </div>
@@ -22,7 +50,6 @@ const Topics = ({ topics, onClick }) => {
 };
 
 Topics.propTypes = {
-  topics: PropTypes.array.isRequired,
   onClick: PropTypes.func.isRequired,
 };
 
